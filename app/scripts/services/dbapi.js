@@ -12,36 +12,18 @@ angular.module('dropblogsApp')
     // Service logic
     // ...
 
-    // https://api-content.dropbox.com/1/files/auto/dropblogs/posts/test.md?grant_type=authorization_code&code=APdqGcfl5OEAAAAAAAAAsuwIWlaR4K9CXF9IusfT0aw&client_id=jo9z6w26kwj4ui1&client_secret=uweeysghqjztij3&access_token=APdqGcfl5OEAAAAAAAAAtc_xRxt_-diQ-lt5AYutd26h5jMY08pErUR-7fdPTFea&token_type=bearer&uid=32372778
-    
-    /* get contents from folder metadata, then get each file and sort by creation date (client_mtime) */
-
-    /*
-    var client_id = 'jo9z6w26kwj4ui1';
-    var client_secret = 'uweeysghqjztij3';
-    var code = 'APdqGcfl5OEAAAAAAAAAvMAlpAlWRNZBTGdkb6Us7gk';
-    var access_token = '';
-
-    $http.post('https://api.dropbox.com/1/oauth2/token', {}, 
-    {
-      client_id: client_id,
-      client_secret: client_secret,
-      code: code
-    })
-    .success(function(response){
-      access_token = response.access_token;
-    });
-    */
-
+    // standard configurations
     var configs = {
       accessToken: 'APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA'
     };
 
     // Public API here
     return {
+      // retrieves standard configs
       getConfigs: function() {
         return configs;
       },
+      // Dropbox API call to retrieve individual post
       getPost: function(path) {
         var ret = $q.defer();
         $http.get('https://api-content.dropbox.com/1/files/auto' + path,
@@ -51,6 +33,7 @@ angular.module('dropblogsApp')
         });
         return ret.promise;
       },
+      // Dropbox API call to retrieve metadata for individual post
       getPostMetadata: function(path) {
         var ret = $q.defer();
         $http.get('https://api.dropbox.com/1/metadata/auto' + path,
@@ -60,6 +43,7 @@ angular.module('dropblogsApp')
         });
         return ret.promise;
       },
+      // Dropbox API call to retrieve the `posts` folder metadata, then process it into a prettified list of posts
       getPostList: function() {
         var ret = $q.defer();
         var getPost = this.getPost;
@@ -67,10 +51,14 @@ angular.module('dropblogsApp')
           {params: {'access_token': configs.accessToken}})
         .success(function (response){
           var postList = response.contents.map(function(post){
+            // grabs the file list and maps each of them into an object containint title, date, and content
             var postEntry = {
               title: post.path,
+              path: post.path.replace('/dropblogs/posts',''),
               uploadDate: post.client_mtime,
             };
+
+            // make separate Dropbox API call for each file
             getPost(post.path).then(function (postFile) {
               postEntry.content = postFile;
             });
