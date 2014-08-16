@@ -31,7 +31,8 @@
       </div>
 
       <div class="col-md-2" ng-include src="'views/left-sidebar.html'"></div>
-      <div ng-view></div>
+      <div class="col-md-10" ng-view></div>
+
 
       <div class="footer">
 
@@ -89,6 +90,8 @@
         <script src="scripts/controllers/post.js"></script>
         <script src="scripts/controllers/blog.js"></script>
         <script src="scripts/services/dbapi.js"></script>
+        <script src="scripts/directives/disqus.js"></script>
+        <script src="scripts/directives/blogpost.js"></script>
         <!-- endbuild -->
 </body>
 </html>

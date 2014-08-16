@@ -14,6 +14,8 @@ angular.module('dropblogsApp')
 
     // standard configurations
     var configs = {
+      dropblogPath: 'dropblogs/',
+      dropblogPostPath: 'dropblogs/posts/',
       accessToken: 'APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA'
     };
 
@@ -23,8 +25,17 @@ angular.module('dropblogsApp')
       getConfigs: function() {
         return configs;
       },
+      // generic Dropbox API GET call to url
+      apiCallGet: function(url) {
+        var ret = $q.defer();
+        $http.get(url, {params: {'access_token': configs.accessToken}})
+        .success(function (response) {
+          ret.resolve(response);
+        });
+        return ret.promise;
+      },
       // Dropbox API call to retrieve individual post
-      getPost: function(path) {
+      getFile: function(path) {
         var ret = $q.defer();
         $http.get('https://api-content.dropbox.com/1/files/auto/' + path,
           {params: {'access_token': configs.accessToken}})
@@ -36,7 +47,7 @@ angular.module('dropblogsApp')
       // Dropbox API call to retrieve metadata for individual post
       getPostMetadata: function(path) {
         var ret = $q.defer();
-        $http.get('https://api.dropbox.com/1/metadata/auto' + path,
+        $http.get('https://api.dropbox.com/1/metadata/auto/' + path,
           {params: {'access_token': configs.accessToken}})
         .success(function (response){
           ret.resolve(response);
@@ -46,7 +57,7 @@ angular.module('dropblogsApp')
       // Dropbox API call to retrieve the `posts` folder metadata, then process it into a prettified list of posts
       getPostList: function() {
         var ret = $q.defer();
-        var getPost = this.getPost;
+        var getPost = this.getFile;
         $http.get('https://api.dropbox.com/1/metadata/auto/dropblogs/posts',
           {params: {'access_token': configs.accessToken}})
         .success(function (response){

@@ -12,9 +12,21 @@ angular.module('dropblogsApp')
 
 			$scope.filename = $route.current.params.filename;
 
-			// get the post from dbApiFactory.getPost() then attach the promise to the scope
-			dbApiFactory.getPost('dropblogs/posts/' + $route.current.params.filename)
-				.then(function (post){
-					$scope.post = post;
+			$scope.post = {};
+
+			var dropblogPostPath = dbApiFactory.getConfigs().dropblogPostPath;
+
+			dbApiFactory.getPostMetadata(dropblogPostPath + $route.current.params.filename)
+				.then(function (postMetadata) {
+					$scope.post.title = postMetadata.path.replace(dropblogPostPath,'');
+					$scope.post.uploadDate = postMetadata.client_mtime;
+
+					dbApiFactory.getFile(dropblogPostPath + $route.current.params.filename)
+						.then(function (post){
+							$scope.post.content = post;
+						});
 				});
+
+			// get the post from dbApiFactory.getPost() then attach the promise to the scope
+			
 		}]);
