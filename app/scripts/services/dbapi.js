@@ -33,27 +33,14 @@ angular.module('dropblogsApp')
     });
     */
 
-    var access_token = 'APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA';
-
+    var configs = {
+      accessToken: 'APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA'
+    };
 
     // Public API here
     return {
-      getBlogPostList: function () {
-        var deferred = $q.defer();
-        $http.get('https://api.dropbox.com/1/metadata/auto/dropblogs/posts?access_token=APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA')
-        .success(function (response) {
-          deferred.resolve(response);
-        });
-        return deferred.promise;
-      },
-      getBlogPost: function(filename) {
-        var deferred = $q.defer();
-        $http.get('https://api-content.dropbox.com/1/files/auto/dropblogs/posts/' + filename,
-          {access_token: access_token})
-        .success(function (response) {
-          deferred.resolve(response);
-        });
-        return deferred.promise;
+      getConfigs: function() {
+        return configs;
       }
     };
   }]);

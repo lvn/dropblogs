@@ -23,7 +23,7 @@ angular
         templateUrl: 'views/blog.html',
         controller: 'BlogCtrl'
       })
-      .when('/post', {
+      .when('/post/:filename', {
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })

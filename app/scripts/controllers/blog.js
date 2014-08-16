@@ -8,7 +8,7 @@
  * Controller of the dropblogsApp
  */
 angular.module('dropblogsApp')
-  .controller('BlogCtrl', function ($scope, dbApiFactory) {
+  .controller('BlogCtrl', ['$scope', '$http', 'dbApiFactory', function ($scope, $http, dbApiFactory) {
     /*
     $scope.posts = [
       {
@@ -21,8 +21,17 @@ angular.module('dropblogsApp')
         uploadDate: 'Sun, 22 Aug 2010 00:05:00 +0000',
         content: '### Hello etc. \n sdfdfsdfsdf'
       }
-    ];*/
+    ];
 
-    $scope.posts = dbApiFactory.getBlogPostList();
 
-  });
+    $http.get('https://api.dropbox.com/1/metadata/auto/dropblogs/posts?access_token=APdqGcfl5OEAAAAAAAAAv4DMublsAvwHBp-xP3Zpyy9Om41t9Xoop2jKVdkmExPA')
+      .success(function (response) {
+        $scope.posts = response.contents;
+      });
+    */
+    $http.get('https://api.dropbox.com/1/metadata/auto/dropblogs/posts/',
+      {params: {'access_token': dbApiFactory.getConfigs().accessToken}})
+    .success(function (response) {
+      $scope.posts = response.contents;
+    })
+  }]);
