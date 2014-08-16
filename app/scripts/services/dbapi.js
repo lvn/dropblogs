@@ -41,6 +41,45 @@ angular.module('dropblogsApp')
     return {
       getConfigs: function() {
         return configs;
+      },
+      getPost: function(path) {
+        var ret = $q.defer();
+        $http.get('https://api-content.dropbox.com/1/files/auto' + path,
+          {params: {'access_token': configs.accessToken}})
+        .success(function (response){
+          ret.resolve(response);
+        });
+        return ret.promise;
+      },
+      getPostMetadata: function(path) {
+        var ret = $q.defer();
+        $http.get('https://api.dropbox.com/1/metadata/auto' + path,
+          {params: {'access_token': configs.accessToken}})
+        .success(function (response){
+          ret.resolve(response);
+        });
+        return ret.promise;
+      },
+      getPostList: function() {
+        var ret = $q.defer();
+        var getPost = this.getPost;
+        $http.get('https://api.dropbox.com/1/metadata/auto/dropblogs/posts',
+          {params: {'access_token': configs.accessToken}})
+        .success(function (response){
+          var postList = response.contents.map(function(post){
+            var postEntry = {
+              title: post.path,
+              uploadDate: post.client_mtime,
+            };
+            getPost(post.path).then(function (postFile) {
+              postEntry.content = postFile;
+            });
+            return postEntry;
+          });
+
+          ret.resolve(postList);
+        });
+        return ret.promise;
       }
     };
   }]);
