@@ -26,7 +26,7 @@ angular.module('dropblogsApp')
       // Dropbox API call to retrieve individual post
       getPost: function(path) {
         var ret = $q.defer();
-        $http.get('https://api-content.dropbox.com/1/files/auto' + path,
+        $http.get('https://api-content.dropbox.com/1/files/auto/' + path,
           {params: {'access_token': configs.accessToken}})
         .success(function (response){
           ret.resolve(response);
@@ -54,7 +54,7 @@ angular.module('dropblogsApp')
             // grabs the file list and maps each of them into an object containint title, date, and content
             var postEntry = {
               title: post.path,
-              path: post.path.replace('/dropblogs/posts',''),
+              path: post.path.replace('/dropblogs/posts/',''),
               uploadDate: post.client_mtime,
             };
 

@@ -1,18 +1,17 @@
-<div class="col-md-3" ng-include src="'views/left-sidebar.html'"></div>
 
-<div class="col-md-6">
+
+<div class="col-md-8">
   <h3>Posts</h3>
 
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="post in posts">
-      <h3><a href="post{{post.path}}">{{post.title}}</a></h3>
+      <h3><a href="#/post/{{post.path}}">{{post.title}}</a></h3>
+      {{post.path}}
       <p>{{post.uploadDate}}</p>
       <code>{{post.content}}</code>
     </li>
   </ul>
 </div>
 
-<div class="col-md-3" ng-hide="true">
-  Posts
-  {{posts}}
+<div class="col-md-3">
 </div>
