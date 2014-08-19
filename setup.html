@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Setup Your Dropblog</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <style>
+
+    body { font-family: 'Open Sans', 'sans-serif'; }
+    p { font-size: 0.9em; }
+  </style>
+
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript">
+
+    var submitAuthCode = function(){
+      var postURI = 'https://api.dropbox.com/1/oauth2/token?&grant_type=authorization_code&client_id=jo9z6w26kwj4ui1&client_secret=uweeysghqjztij3&code=' + $('#dbapi-code').val();
+
+      $.post(postURI, {}, function(){}, 'json')
+        .done(function(data) {
+          $('#dbapi-result').text('Your access token: ');
+          $('#dbapi-result').append('<b>' + data.access_token + '</b>');
+        })
+        .fail(function () {
+          $('#dbapi-result').text('Error retrieving your access token.');
+        });
+    };
+  </script>
+</head>
+<body>
+  <h3>Setup Your Dropblog</h3>
+  <p>Connect Dropblog to Dropbox <a target="_new" href="https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=jo9z6w26kwj4ui1">here</a>.</p>
+  <p>Paste your code here: <input type="text" id="dbapi-code" placeholder="Dropbox Auth Code"><input type="button" id="submit-authcode" value="Submit" onclick="submitAuthCode()"></p>
+  <p id="dbapi-result"></p>
+  <p>Paste your access token in <code>app/services/apiconfig.js</code>.</p>
+</body>
+</html>
