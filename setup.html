@@ -1,20 +1,16 @@
 <html>
 <head>
   <title>Setup Your Dropblog</title>
-
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <style>
-
     body { font-family: 'Open Sans', 'sans-serif'; }
     p { font-size: 0.9em; }
   </style>
 
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript">
-
     var submitAuthCode = function(){
       var postURI = 'https://api.dropbox.com/1/oauth2/token?&grant_type=authorization_code&client_id=jo9z6w26kwj4ui1&client_secret=uweeysghqjztij3&code=' + $('#dbapi-code').val();
-
       $.post(postURI, {}, function(){}, 'json')
         .done(function(data) {
           $('#dbapi-result').text('Your access token: ');
