@@ -16,7 +16,8 @@ angular.module('dropblogsApp')
     return {
         dropblogPath: 'dropblogs/',
         postsPath: 'dropblogs/posts/',
-        leftSidebarPath: 'dropblogs/layout/left-sidebar.md',
+        leftSidebarFile: 'dropblogs/layout/left-sidebar.md',
+        rightSidebarFile: 'dropblogs/layout/right-sidebar.md',
 
         accessToken: '__ACCESS_TOKEN_HERE', // change accessToken to be your access token
     };

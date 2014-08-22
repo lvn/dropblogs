@@ -43,6 +43,24 @@ angular.module('dropblogsApp')
         });
         return ret.promise;
       },
+      // wrapper around getFile() to get left sideba
+      getLeftSidebar: function() {
+        var ret = $q.defer();
+        this.getFile(configs.leftSidebarFile)
+          .then(function (response) {
+            ret = response;
+          })
+        return ret;
+      },
+      // wrapper around getFile() to get right sidebar
+      getRightSidebar: function() {
+        var ret = $q.defer();
+        this.getFile(configs.rightSidebarFile)
+          .then(function (response) {
+            ret = response;
+          })
+        return ret;
+      },
       // Dropbox API call to retrieve metadata for individual post
       getPostMetadata: function(path) {
         var ret = $q.defer();
