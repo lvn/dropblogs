@@ -20,7 +20,6 @@ angular.module('dropblogsApp')
         $scope.posts = postList;
         $scope.numPosts = postList.length;
 
-        console.log($scope.numPosts);
         $scope.numPages = Math.ceil((1.0*$scope.numPosts) / $scope.maxPagePosts); // set number of pages as ceil of |posts|/maxPagePosts
 
         $scope.pageNumbers = [];

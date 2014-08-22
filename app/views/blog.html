@@ -11,7 +11,7 @@
       <h3><a href="#/post/{{post.path}}">{{post.title}}</a></h3>
       {{post.path}}
       <p>{{post.uploadDate | date: 'medium'}}</p>
-      <code>{{post.content}}</code>
+      <div btf-markdown="post.content"></div>
     </li>
   </ul>
 

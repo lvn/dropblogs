@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'btford.markdown'
   ])
   .config(function ($routeProvider) {
     $routeProvider
