@@ -8,7 +8,7 @@
  * Controller of the dropblogsApp
  */
 angular.module('dropblogsApp')
-  .controller('BlogCtrl', ['$scope', '$http', 'dbApiFactory', function ($scope, $http, dbApiFactory) {
+  .controller('BlogCtrl', ['$scope', '$http', '$filter', 'dbApiFactory', function ($scope, $http, $filter, dbApiFactory) {
     $scope.isAccessTokenValid = dbApiFactory.isAccessTokenValid(); // check with the API factory to see if blog is set up
 
     $scope.startPost = 0; // points at the beginning of the post list
@@ -17,13 +17,13 @@ angular.module('dropblogsApp')
     // attach the list of posts from dbApiFactory.getPostList() to scope
     dbApiFactory.getPostList()
       .then(function (postList) {
-        $scope.posts = postList;
+        $scope.posts = $filter('orderBy')(postList, 'uploadDate', true);
         $scope.numPosts = postList.length;
-
         $scope.numPages = Math.ceil((1.0*$scope.numPosts) / $scope.maxPagePosts); // set number of pages as ceil of |posts|/maxPagePosts
-
         $scope.pageNumbers = [];
         for (var i = 0; i < $scope.numPages; i++) // generate the list of page numbers
           $scope.pageNumbers.push(i);
+
+        console.log(postList[0].uploadDate);
       });
   }]);
