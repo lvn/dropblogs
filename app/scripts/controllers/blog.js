@@ -23,7 +23,5 @@ angular.module('dropblogsApp')
         $scope.pageNumbers = [];
         for (var i = 0; i < $scope.numPages; i++) // generate the list of page numbers
           $scope.pageNumbers.push(i);
-
-        console.log(postList[0].uploadDate);
       });
   }]);

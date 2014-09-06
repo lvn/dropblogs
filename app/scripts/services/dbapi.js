@@ -50,7 +50,8 @@ angular.module('dropblogsApp')
         this.getFile(configs.leftSidebarFile)
           .then(function (response) {
             ret = response;
-          })
+            console.log(ret);
+          });
         return ret;
       },
       // wrapper around getFile() to get right sidebar
@@ -59,7 +60,7 @@ angular.module('dropblogsApp')
         this.getFile(configs.rightSidebarFile)
           .then(function (response) {
             ret = response;
-          })
+          });
         return ret;
       },
       // Dropbox API call to retrieve metadata for individual post

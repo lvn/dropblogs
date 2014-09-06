@@ -16,5 +16,5 @@ angular.module('dropblogsApp')
 
       // get the post from dbApiFactory.getPost() then attach the promise to the scope
       
-    }])
+    }]);
   
