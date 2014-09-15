@@ -8,9 +8,9 @@
 
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="post in posts.slice(startPost, Math.min(numPosts-1,maxPagePosts)) | orderBy: -uploadDate | limitTo: maxPagePosts">
-      <h3><a href="#/post/{{post.path}}">{{post.title}}</a></h3>
-      <p>{{post.uploadDate | date: 'medium'}}</p>
-      <div btf-markdown="post.content"></div>
+
+
+      <blog-post></blog-post>
     </li>
   </ul>
 

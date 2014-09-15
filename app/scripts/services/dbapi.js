@@ -14,7 +14,6 @@ angular.module('dropblogsApp')
 
     // configure and get access key
     var configs = apiConfig;
-    configs.accessToken = 'APdqGcfl5OEAAAAAAAABDsx8IXrIZcrY-gSn0xcrio6iXyqamDimb2mA9p432RVT';
 
     // Public API here
     return {
