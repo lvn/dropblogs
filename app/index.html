@@ -12,6 +12,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dropblog-default.css">
     <!-- endbuild -->
   </head>
   <body ng-app="dropblogsApp">
@@ -21,15 +22,15 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
+      <div class="header dropblog-header">
         <h3><a href="/">Dropblogs</a></h3>
       </div>
 
-      <div class="col-md-2" ng-include src="'views/left-sidebar.html'"></div>
+      <div class="col-md-2 dropblog-sidebar" ng-include src="'views/left-sidebar.html'"></div>
       <div class="col-md-10" ng-view></div>
 
 
-      <div class="footer">
+      <div class="footer dropblog-footer">
 
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
         <p><span class="glyphicon glyphicon-trash"></span> from Elvin Yung</p>

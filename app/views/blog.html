@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-8 dropblog-body">
   <h3>Posts</h3>
 
   <div ng-hide="isAccessTokenValid">
@@ -6,7 +6,7 @@
     <p>You should take a look at the instructions in the readme.</p>
   </div>
 
-  <ul class="list-group">
+  <ul class="list-group dropblog-posts-list">
     <li class="list-group-item" ng-repeat="post in posts.slice(startPost, Math.min(numPosts-1,maxPagePosts)) | orderBy: -uploadDate | limitTo: maxPagePosts">
 
 
